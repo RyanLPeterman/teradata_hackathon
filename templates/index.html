@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Heatmaps</title>
 
-	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+	<link href="../static/style.css" rel="stylesheet">
 
 </head>
 
@@ -16,7 +16,7 @@
       <button onclick="changeOpacity()">Change opacity</button>
     </div>
     <div id="map"></div>
-<script src="{{ url_for('static', filename='app.js') }}"></script>    
+<script src="../static/app.js"></script>    
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOETjzS0sy57qnR2y2fjH-9z4imXkeV3k&signed_in=true&libraries=visualization&callback=initMap">
