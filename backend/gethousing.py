@@ -68,9 +68,12 @@ wsPass = 'tdhackathon'
 data = perform_query ( 'select * from housing_data.san_francisco_rental_listings', wsUser, wsPass)
 
 
-#print data['results'][0]['data'][0][0]
+print data['results'][0]['data'][0][0]
 conn = MySQLdb.connect("localhost",'root','root','crime');
 
 db = conn.cursor() 
+#crime=db.execute("select * from crime")
+#print db.fetchall()
+
 for x in enumerate(data['results'][0]['data']):
-    db.execute("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ")")
+    print("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ");")
