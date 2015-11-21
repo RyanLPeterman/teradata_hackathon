@@ -12,8 +12,9 @@ def hello():
 
 @app.route("/test")
 def test():
-    data = getdata()
-    return str(data)
+    #data = getdata()
+    print "hi"
+    return str(1)
 
 if __name__ == "__main__":
     app.run()
