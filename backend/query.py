@@ -22,8 +22,13 @@ def getdata():
 		sys.exit(1)
 		
 	finally:    
-		return json.dumps([ {'max' : count}, crime])
+		data = []
+		for x in enumerate(crime):
+			temp = {}
+			temp['lat'] = x[1][0]
+			temp['lng'] = x[1][1]
+			data.append(temp)
+		return  json.dumps({'max' : count , 'data': data})
+
 		if con:    
 			con.close()
-
-#print getdata()

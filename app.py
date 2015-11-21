@@ -5,7 +5,7 @@ sys.path.insert(0, 'backend')
 import query
 app = Flask(__name__)
 
-
+data=query.getdata()
 @app.route("/")
 def hello():
     return render_template("index.html")
@@ -13,8 +13,7 @@ def hello():
 @app.route("/test")
 def test():
     #data = getdata()
-    print "hi"
-    return str(1)
+    return data
 
 if __name__ == "__main__":
     app.run()
