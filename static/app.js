@@ -8,14 +8,13 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     center: {lat: 37.775, lng: -122.434},
-    mapTypeId: google.maps.MapTypeId.SATELLITE
+    mapTypeId: google.maps.MapTypeId.MAP
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: getPoints(),
     map: map
   });
-
   addHousingData(getHousing(), map);
   
 }
