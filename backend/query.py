@@ -26,4 +26,4 @@ def getdata():
 		if con:    
 			con.close()
 
-print getdata()
+#print getdata()

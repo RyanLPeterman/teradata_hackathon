@@ -4,22 +4,43 @@
     <meta charset="utf-8">
     <title>Heatmaps</title>
 
-	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
-
-</head>
+    <link href="../static/style.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Source+Sans+Pro|Raleway|PT+Sans' rel='stylesheet' type='text/css'>
+  </head>
 
   <body>
-    <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-      <button onclick="changeGradient()">Change gradient</button>
-      <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
-    </div>
-    <div id="map"></div>
-<script src="{{ url_for('static', filename='app.js') }}"></script>    
+    <div id="container">
+      <div id="heatmap_options">
+        <ul>
+          <li><button onclick="toggleHeatmap()">Toggle Heatmap</button></li>
+          <li><button onclick="changeGradient()">Change gradient</button></li>
+          <li><button onclick="changeRadius()">Change radius</button></li>
+          <li><button onclick="changeOpacity()">Change opacity</button></li>
+        </ul>
+      </div>
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOETjzS0sy57qnR2y2fjH-9z4imXkeV3k&signed_in=true&libraries=visualization&callback=initMap">
-    </script>
+      <div id="nav">
+         <ul>
+          <li>
+            <input type="checkbox" value="1" id="crime" name="" />
+            Crime
+          </li>
+          <li>
+            <input type="checkbox" value="2" id="price" name="" />
+            Housing Price
+          </li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <div id="map"></div>
+      <script type="text/javascript" src="../static/app.js"></script>
+
+      <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOETjzS0sy57qnR2y2fjH-9z4imXkeV3k&signed_in=true&libraries=visualization&callback=initMap">
+      </script>
+
+    </div>
   </body>
 </html>
