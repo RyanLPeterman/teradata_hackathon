@@ -4,6 +4,7 @@ import json
 import urllib2
 import base64
 import zlib
+import MySQLdb 
 
 # Overall WS Access Variables
 dbsAlias = 'HackSys'
@@ -51,19 +52,25 @@ def rest_request ( query ,wsUser,wsPass):
         response = e.read();
 
     # Parse response to confirm value JSON.
-    results = json.loads(response);
+    return json.loads(response);
 
-    print json.dumps(results, indent=4, sort_keys=True) 
+    return json.dumps(results, indent=4, sort_keys=True) 
 
-    return;
+    
 
 def perform_query( query, wsUser, wsPass ):
-    rest_request(query, wsUser, wsPass)
+    return rest_request(query, wsUser, wsPass)
     
-    return;
+    
 
 wsUser = 'hack_user16'
 wsPass = 'tdhackathon'
-perform_query ( 'select * from housing_data.san_francisco_rental_listings', wsUser, wsPass)
+data = perform_query ( 'select * from housing_data.san_francisco_rental_listings', wsUser, wsPass)
 
 
+#print data['results'][0]['data'][0][0]
+conn = MySQLdb.connect("localhost",'root','root','crime');
+
+db = conn.cursor() 
+for x in enumerate(data['results'][0]['data']):
+    db.execute("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ")")
