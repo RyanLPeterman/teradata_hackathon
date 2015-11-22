@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 import sys
 import json
 sys.path.insert(0, 'backend')
-import query
+import queryhousing
 app = Flask(__name__)
 
 #data=query.getdata()
@@ -24,6 +24,7 @@ def getdata():
     high = request.args['high']
     print bed, low, high
     data = query.getdata(bed, low, high)
+    #print data
     return data
 
 if __name__ == "__main__":
