@@ -21,21 +21,26 @@ def rest_request ( query ,wsUser,wsPass):
     headers['Content-Type'] = 'application/json'
     headers['Accept'] = 'application/vnd.com.teradata.rest-v1.0+json'
     headers['Authorization'] = "Basic %s" % base64.encodestring('%s:%s' % (wsUser, wsPass)).replace('\n', '');
+    #headers['rowLimit'] = 20000;
+
 
     # Set query bands
     queryBands = {}
     queryBands['applicationName'] = 'MyApp'
     queryBands['version'] = '1.0'
+    #'rowcount'] = 2000
 
     # Set request fields. including SQL
     data = {}
+    data['rowLimit'] = 0
     data['query'] = query
     data['queryBands'] = queryBands
     data['format'] = 'array'
-
+    
     # Build request.
     request = urllib2.Request(url, json.dumps(data), headers)
 
+    
     #Submit request
     try:
         response = urllib2.urlopen(request);
@@ -68,12 +73,10 @@ wsPass = 'tdhackathon'
 data = perform_query ( 'select * from housing_data.san_francisco_rental_listings', wsUser, wsPass)
 
 
-print data['results'][0]['data'][0][0]
+#print len(data['results'][0]['data'])
+#print data['results'][0]['data'][0][0]
 conn = MySQLdb.connect("localhost",'root','root','crime');
 
 db = conn.cursor() 
-#crime=db.execute("select * from crime")
-#print db.fetchall()
-
 for x in enumerate(data['results'][0]['data']):
-    print("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ");")
+    db.execute("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ")")
