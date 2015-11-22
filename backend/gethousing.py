@@ -79,4 +79,4 @@ conn = MySQLdb.connect("localhost",'root','root','crime');
 
 db = conn.cursor() 
 for x in enumerate(data['results'][0]['data']):
-    db.execute("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ")")
+    print ("insert into housing (bedrooms, rent, x, y) values (" + str(x[1][0])+ ", " + str(x[1][1]) + ", " + str(x[1][2]) + ", " + str(x[1][3]) + ");")
