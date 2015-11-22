@@ -1,9 +1,5 @@
 var map, heatmap;
 
-// temp
-var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var labelIndex = 0;
-
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
@@ -17,7 +13,7 @@ function initMap() {
     radius: 30
   });
 
-  // addHousingData(getHousingData(), map);
+  addHousingData(getHousingData(), map);
   
 }
 
@@ -53,59 +49,52 @@ function changeOpacity() {
   heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
-// function addHousingData(houses, map) {
-//     var num_houses = houses.length;
+function addHousingData(houses, map) {
+    var num_houses = houses.max;
 
-//     // init infoWindow for use when setting content
-//     var infoWindow = new google.maps.InfoWindow();
+    // init infoWindow for use when setting content
+    var infoWindow = new google.maps.InfoWindow();
 
-//     for(i = 0; i < num_houses; i++) {
-//         // adds a marker to the map where listing is
-//         var marker = new google.maps.Marker({
-//             position: houses[i].location,
-//             label: labels[labelIndex++ % labels.length],
-//             map: map
-//         });
+    // loop through all houses
+    for(i = 0; i < num_houses; i++) {
+        var label_str = "house";
+        // alert(new google.maps.LatLng(houses.data[i].lat, houses.data[i].lng));
+        // adds a marker to the map where listing is
+        var marker = new google.maps.Marker({
+            // TODO: lat and long is backwards again
+            position: new google.maps.LatLng(houses.data[i].lat, houses.data[i].lng),
+            map: map
+        });
 
-//         //Attach click event to the marker.
-//         (function (marker, rent) {
-//             google.maps.event.addListener(marker, "click", function (e) {
-//                 //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
-//                 infoWindow.setContent("<div style = 'width:200px;min-height:40px'> The rent for this house is:" + rent + "</div>");
-//                 infoWindow.open(map, marker);
-//             });
-//         })(marker, houses[i].rent);
-//     }
-// }
+        //Attach click event to the marker.
+        (function (marker, rent) {
+            google.maps.event.addListener(marker, "click", function (e) {
+                //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                infoWindow.setContent("<div style = 'width:200px;min-height:40px'> The rent for this house is: $" + rent + "</div>");
+                infoWindow.open(map, marker);
+            });
+        })(marker, houses.data[i].rent);
+    }
+}
 
-// // gets the housing JSON
-// // lat, long, rent, #rooms
-// function getHousingData() {
-//     var my_data = JSON.parse(houses);
-//     var result = new Array();
-
-//     for(i = 0; i < my_data.max; i+=10) {
-//         var cordinate = new google.maps.LatLng(my_data.data[i].lng, my_data.data[i].lat);
-//         var num_beds = my_data.data[i].bed;
-//         var rent = 
-//         var temp = [cordinate, ]
-
-//     }
-//     // return [ {location: new google.maps.LatLng(37.782551, -122.445368), rent : 100},
-//     // {location: new google.maps.LatLng(37.782551, -122.44), rent : 42},
-//     // {location: new google.maps.LatLng(37.78, -122.445368), rent : 68}
-//     // ];
-// }
+// gets the housing JSON
+// lat, long, rent, #rooms
+function getHousingData() {
+    return JSON.parse(houses);
+}
 
 // Heatmap data: 500 Points
 function getCrimeData() {
 
-    var my_data = JSON.parse(crimes);
+    var my_data = JSON.parse(w_crimes);
     var result = new Array();
 
     for(i = 0; i < my_data.max; i++) {
-        // fix this latitude and longitude switched in json
-        result.push(new google.maps.LatLng(my_data.data[i].lng, my_data.data[i].lat));
+        // TODO fix this latitude and longitude switched in json
+        result.push({
+            location:new google.maps.LatLng(my_data.data[i].lat, my_data.data[i].lng),
+            weight: my_data.data[i].count
+        });
     }
 
     return result;
