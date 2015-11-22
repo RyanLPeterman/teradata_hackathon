@@ -15,12 +15,16 @@ def test():
     #data = getdata()
     return "yoo"
 
-@app.route("/getdata")
+@app.route("/getdata",methods=["GET"])
 def getdata():
-	print "receive request"
-    sdata = json.loads(request)
-    data = query.getdata(sdata['bed'], sdata['low'], sdata['high'])
-	return data
+    print "receive request"
+    
+    bed = request.args['bed']
+    low = request.args['low']
+    high = request.args['high']
+    print bed, low, high
+    data = query.getdata(bed, low, high)
+    return data
 
 if __name__ == "__main__":
     app.run()

@@ -35,14 +35,14 @@
 
       <div id="map"></div>
       <script type="text/javascript" src="../static/housing_static_data.json"></script>
-      <script type="text/javascript" src="../backend/temp_crime.json"></script>
-      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+      <!--<script type="text/javascript" src="../backend/temp_crime.json"></script>
+    -->  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   		<script>
   			var houses = "";
         sendData = {};
-        sendData[bed] = 3;
-        sendData[low] = 2000;
-        sendData[high]= 2500;
+        sendData['bed'] = 2;
+        sendData['low'] = 10;
+        sendData['high']= 25000;
   			$.get( "/getdata", sendData, function( data ) {
   				houses = JSON.parse(data);
   			});

@@ -12,7 +12,10 @@ def getdata(bed, low, high):
 	try:
 		con = mdb.connect('localhost', 'root', 'root', 'crime');
 		cur = con.cursor()
-		cur.execute("select * from housing where bedrooms=" + str(bed) + " and rent between " + str(low) + " and " + str(high)+ ";")
+		if bed == 0:
+			cur.execute("select * from housing where rent between " + str(low) + " and " + str(high)+ ";")
+		else:
+			cur.execute("select * from housing where bedrooms=" + str(bed) + " and rent between " + str(low) + " and " + str(high)+ ";")
 		houses = cur.fetchall()
 		count = len(houses)
 
@@ -36,4 +39,4 @@ def getdata(bed, low, high):
 		if con:    
 			con.close()
 
-print getdata(2, 1000, 5000)
+print getdata(0, 1000, 5000)
