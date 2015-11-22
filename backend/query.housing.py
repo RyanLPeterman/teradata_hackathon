@@ -6,15 +6,15 @@ import sys
 import json
 
 
-def getdata():
+def getdata(bed, low, high):
+	houses = []
+	count = 0
 	try:
 		con = mdb.connect('localhost', 'root', 'root', 'crime');
-
 		cur = con.cursor()
-		cur.execute("select * from housing;")
-		crime = cur.fetchall()
-		cur.execute("select count(*) from housing;")
-		count = len(crime)
+		cur.execute("select * from housing where bedrooms=" + str(bed) + " and rent between " + str(low) + " and " + str(high)+ ";")
+		houses = cur.fetchall()
+		count = len(houses)
 
 	except mdb.Error, e:
 	  
@@ -23,7 +23,7 @@ def getdata():
 		
 	finally:    
 		data = []
-		for x in enumerate(crime):
+		for x in enumerate(houses):
 			temp = {}
 			temp['id'] = x[0]
 			temp['bed'] = x[1][0]
@@ -36,4 +36,4 @@ def getdata():
 		if con:    
 			con.close()
 
-print getdata()
+print getdata(2, 1000, 5000)

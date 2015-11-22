@@ -5,7 +5,7 @@ sys.path.insert(0, 'backend')
 import query
 app = Flask(__name__)
 
-data=query.getdata()
+#data=query.getdata()
 @app.route("/")
 def hello():
     return render_template("index.html")
@@ -13,11 +13,13 @@ def hello():
 @app.route("/test")
 def test():
     #data = getdata()
-    return "yo"
+    return "yoo"
 
 @app.route("/getdata")
 def getdata():
 	print "receive request"
+    sdata = json.loads(request)
+    data = query.getdata(sdata['bed'], sdata['low'], sdata['high'])
 	return data
 
 if __name__ == "__main__":

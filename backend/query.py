@@ -25,7 +25,7 @@ def getrating(d):
 	return 1
 		
 
-def getdata():
+def getdata(bed, low, high):
 	try:
 		con = mdb.connect('localhost', 'root', 'root', 'crime');
 
