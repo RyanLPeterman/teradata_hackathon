@@ -34,18 +34,22 @@
       </div>
 
       <div id="map"></div>
-      <script type="text/javascript" src="../static/temp.json"></script>
-      <!--<script type="text/javascript" src="../static/housing_static_data.json"></script>-->
+      <script type="text/javascript" src="../static/housing_static_data.json"></script>
+      <script type="text/javascript" src="../backend/temp_crime.json"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-		<script>
-			var houses = "";
-			$.get( "/getdata", function( data ) {
-				houses = JSON.parse(data);
-			});
-			alert('hoi')	;	
-		</script>
+  		<script>
+  			var houses = "";
+        sendData = {};
+        sendData[bed] = 3;
+        sendData[low] = 2000;
+        sendData[high]= 2500;
+  			$.get( "/getdata", sendData, function( data ) {
+  				houses = JSON.parse(data);
+  			});
+  		
+  		</script>
  
-	 <script type="text/javascript" src="../static/app.js"></script>
+	    <script type="text/javascript" src="../static/app.js"></script>
        
 
       <script async defer
