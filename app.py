@@ -13,7 +13,12 @@ def hello():
 @app.route("/test")
 def test():
     #data = getdata()
-    return data
+    return "yo"
+
+@app.route("/getdata")
+def getdata():
+	print "receive request"
+	return data
 
 if __name__ == "__main__":
     app.run()
